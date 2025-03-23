@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Tester</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background: #ffe6f2;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 90px;
+            margin: 20px;
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 52px;
+            height: 80px;
+            border-radius: 50px 50px 0 0;
+            background-color: #ff3f3f;
+        }
+
+        .heart::before {
+            left: 50px;
+            transform: rotate(-45deg);
+            transform-origin: 0 100%;
+        }
+
+        .heart::after {
+            left: 0;
+            transform: rotate(45deg);
+            transform-origin: 100% 100%;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        #yesBtn {
+            background: #4CAF50;
+            color: white;
+        }
+
+        #noBtn {
+            background: #f44336;
+            color: white;
+            position: absolute;
+        }
+
+        .cat {
+            font-size: 100px;
+            display: none;
+            position: absolute;
+            bottom: 20%;
+            animation: dance 2s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.3); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes dance {
+            0% { transform: rotate(0deg) scale(1); }
+            25% { transform: rotate(15deg) scale(1.2); }
+            50% { transform: rotate(-15deg) scale(1.3); }
+            75% { transform: rotate(10deg) scale(1.1); }
+            100% { transform: rotate(0deg) scale(1); }
+        }
+
+        h1 {
+            color: #ff3f3f;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Do you love me? 🐾</h1>
+    <div class="heart"></div>
+    <div class="buttons">
+        <button id="yesBtn">Yes!</button>
+        <button id="noBtn">No</button>
+    </div>
+    <div class="cat">🐈</div>
+
+    <script>
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const dog = document.querySelector('.dog');
+        let clickCount = 0;
+
+        yesBtn.addEventListener('click', () => {
+            dog.style.display = 'block';
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            document.querySelector('.heart').style.display = 'none';
+            document.querySelector('h1').innerHTML = "i love u too! 🥰🥰";
+        });
+
+        noBtn.addEventListener('mouseover', () => {
+            clickCount++;
+            const maxX = window.innerWidth - noBtn.offsetWidth;
+            const maxY = window.innerHeight - noBtn.offsetHeight;
+            
+           
+            const speed = 100 + (clickCount * 50);
+            const newX = Math.random() * maxX;
+            const newY = Math.random() * maxY;
+
+            noBtn.style.transition = `all ${0.5 - (clickCount * 0.05)}s ease`;
+            noBtn.style.transform = `translate(${newX}px, ${newY}px)`;
+        });
+
+        noBtn.addEventListener('click', () => {
+         
+            document.body.style.backgroundColor = '#ffcccc';
+            setTimeout(() => {
+                document.body.style.backgroundColor = '#ffe6f2';
+            }, 200);
+        });
+    </script>
+</body>
+</html>
